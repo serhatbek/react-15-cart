@@ -1,5 +1,6 @@
 import { useGlobalContext } from './context';
 const CartItem = ({ id, img, title, price, amount }) => {
+  console.log(title);
   return (
     <article className='cart-item'>
       <img src={img} alt={title} />
