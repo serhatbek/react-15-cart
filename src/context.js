@@ -7,8 +7,7 @@ import React, {
 } from 'react';
 import cartItems from './data';
 import reducer from './reducer';
-// ATTENTION!!!!!!!!!!
-// I SWITCHED TO PERMANENT DOMAIN
+
 const url = 'https://course-api.com/react-useReducer-cart-project';
 const AppContext = createContext();
 
@@ -37,6 +36,18 @@ const AppProvider = ({ children }) => {
   const decreaseAmount = (id) => {
     dispatch({ type: 'DECREASE_AMOUNT', payload: id });
   };
+
+  const fetchData = async () => {
+    dispatch({ type: 'LOADING' });
+    const res = await fetch(url);
+    const cart = await res.json();
+
+    dispatch({ type: 'DISPLAY_ITEMS', payload: cart });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     dispatch({ type: 'GET_TOTALS' });
